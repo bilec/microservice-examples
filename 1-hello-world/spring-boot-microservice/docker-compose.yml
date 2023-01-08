@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  hello-backend-service:
+    image: bilec/hello-backend-webapp
+    ports:
+      - "8081:8081"
+    environment:
+      - PORT=8081
+
+  spring-boot-microservice:
+    build:
+      context: ./
+      dockerfile: ./src/main/docker/Dockerfile
+    environment:
+      - GREET.BACKENDSERVICEHOST=hello-backend-service
+      - GREET.BACKENDSERVICEPORT=8081
+    ports:
+      - "8082:8080"
